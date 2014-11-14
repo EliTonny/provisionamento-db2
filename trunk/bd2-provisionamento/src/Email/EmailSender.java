@@ -9,6 +9,8 @@ package Email;
  * @author Lucas
  */
 import MyExceptions.DaoException;
+import provisionamento.model.Usuario;
+/*
 import Sistema.Dao;
 import Sistema.Factoring;
 import java.util.Properties;
@@ -21,12 +23,11 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
-import provisionamento.model.Usuario;
-
+*/
 public class EmailSender {
 
     public EmailSender(Usuario user) throws DaoException {
-    
+    /*
         Properties props = new Properties();
         String senha = "";
         
@@ -77,5 +78,6 @@ public class EmailSender {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
+            */
     }
 }
