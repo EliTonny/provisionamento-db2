@@ -6,8 +6,7 @@ public abstract class ModeloBase implements Serializable {
 
     protected int id;
 
-    public ModeloBase()
-    {
+    public ModeloBase() {
         this.id = -1;
     }
     

@@ -8,12 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import provisionamento.model.*;
 
-/**
- *
- * @author Eli T. de Souza
- */
 public class FramesController {
-    public void grava(Usuario usu) throws DaoException{
+    public void grava(Usuario usu) throws DaoException, Exception {
+        if(this.buscaUsuario(usu.getNome()) != null) {
+            throw new Exception("Usuário " + usu.getNome() + " já cadastrado.");
+        }
         Dao<Usuario> dao = Factoring.getDaoUsuario();
         dao.grava(usu);
         this.notificar(usu);
@@ -27,7 +26,6 @@ public class FramesController {
     
     public void grava(GrupoUnitario grupoUnitario) throws DaoException{
         Dao<GrupoUnitario> dao = Factoring.getDaoGrupoUnitario();
-        dao.grava(grupoUnitario);
         this.notificar(grupoUnitario);
     }
     
@@ -43,8 +41,9 @@ public class FramesController {
     }
     
     public Usuario buscaUsuario(String nome) throws DaoException{
-        Dao<Usuario> dao = Factoring.getDaoUsuario();;
-        return dao.busca(nome);
+        Dao<Usuario> dao = Factoring.getDaoUsuario();
+        List<Usuario> dasda = dao.busca();
+        return dao.busca(nome.trim());
     }
     
     public List buscaCategoria() throws DaoException{
