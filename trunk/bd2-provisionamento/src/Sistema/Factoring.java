@@ -5,6 +5,7 @@ import DaoArquivo.DaoArquivoGrupoComunitario;
 import DaoArquivo.DaoArquivoGrupoUnitario;
 import DaoArquivo.DaoArquivoParticipante;
 import DaoArquivo.DaoArquivoUsuario;
+import DaoMongoDB.DaoMongoUsuario;
 import MyExceptions.DaoException;
 import provisionamento.model.Categoria;
 import provisionamento.model.GrupoComunitario;
@@ -19,7 +20,7 @@ public class Factoring {
     }
 
     public static Dao<Usuario> getDaoUsuario() throws DaoException {
-        return DaoArquivoUsuario.getInstancia();
+        return DaoMongoUsuario.getInstancia();
     }
 
     public static Dao<GrupoComunitario> getDaoGrupoComunitario() throws DaoException {

@@ -1,11 +1,5 @@
 package provisionamento.model;
 
-import DaoArquivo.ModeloBase;
-
-/**
- *
- * @author Eli T. de Souza
- */
 public class Mensagem{
     private String mensagem;
     private GrupoUnitario grupo;

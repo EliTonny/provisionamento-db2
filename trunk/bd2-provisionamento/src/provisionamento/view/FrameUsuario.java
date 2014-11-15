@@ -50,6 +50,7 @@ public class FrameUsuario extends javax.swing.JFrame {
         jLabel4.setText("Confirme a senha:");
 
         btAdiciona.setText("Adicionar Usuario");
+        btAdiciona.setActionCommand("&Adicionar Usuario");
         btAdiciona.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAdicionaActionPerformed(evt);
@@ -118,11 +119,11 @@ public class FrameUsuario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(tfConSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btAdiciona)
                     .addComponent(btFechar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
         );
 
         pack();
@@ -134,35 +135,31 @@ public class FrameUsuario extends javax.swing.JFrame {
 
     private void btAdicionaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionaActionPerformed
         try {
-            boolean ok = true;
-
             if (tfNome.getText().equals("")) {
-                ok = false;
-                JOptionPane.showMessageDialog(null, "Nome nao informado!");
-                this.limpar();
+                JOptionPane.showMessageDialog(this, "Nome não informado!");
+                tfNome.requestFocus();
+                return;
             }
 
             if (!Arrays.equals(tfSenha.getPassword(), tfConSenha.getPassword())) {
+                JOptionPane.showMessageDialog(this, "A senha esta diferente!");
                 tfSenha.setText("");
                 tfConSenha.setText("");
-                ok = false;
-                JOptionPane.showMessageDialog(null, "A senha esta diferente!");
+                tfSenha.requestFocus();
+                return;
             }
 
-            if (ok == true) {
-                try {
-                    Usuario usuario = new Usuario();
-                    usuario.setNome(tfNome.getText());
-                    usuario.setEmail(tfEmail.getText());
-                    usuario.setSenha(tfSenha.getPassword());
-                    controller.grava(usuario);
+            Usuario usuario = new Usuario();
+            usuario.setNome(tfNome.getText());
+            usuario.setEmail(tfEmail.getText());
+            usuario.setSenha(tfSenha.getPassword());
+            controller.grava(usuario);
 
-                    JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
-                    this.limpar();
-                } catch (DaoException ex) {
-                    Logger.getLogger(FrameUsuario.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+            JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
+            this.limpar();
+                    
+        } catch (DaoException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao gravar o Usuário \r\n" + ex.getMessage());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
@@ -188,5 +185,6 @@ public class FrameUsuario extends javax.swing.JFrame {
         tfEmail.setText("");
         tfSenha.setText("");
         tfConSenha.setText("");
+        tfNome.requestFocus();
     }
 }

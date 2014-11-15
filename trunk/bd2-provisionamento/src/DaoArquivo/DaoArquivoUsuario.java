@@ -22,7 +22,7 @@ public class DaoArquivoUsuario extends DaoArquivo<Usuario> implements Dao<Usuari
     @Override
     public Usuario busca(String nome) {
         for (Usuario val : this.dados.buscaTodos()) {
-            if (val.getNome().equals(nome)) {
+            if (val.getNome().trim().equalsIgnoreCase(nome)) {
                 return val;
             }
         }
