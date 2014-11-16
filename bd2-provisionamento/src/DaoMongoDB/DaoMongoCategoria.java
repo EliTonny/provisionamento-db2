@@ -22,7 +22,7 @@ public class DaoMongoCategoria  implements Dao<Categoria> {
     private DaoMongoCategoria() throws DaoException {
         try {
             collection = 
-                    DaoConexaoMongoDB.getInstancia().getCollection("Categoria");
+                    DaoConexaoMongoDB.getInstancia().getCollection(Categoria.class);
         } catch (Exception ex) {
             throw new DaoException(ex);
         }
@@ -34,7 +34,7 @@ public class DaoMongoCategoria  implements Dao<Categoria> {
     }
 
     @Override
-    public Categoria deleta(Categoria objeto) throws DaoException {
+    public void deleta(Categoria objeto) throws DaoException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -22,7 +22,7 @@ public class DaoMongoGrupoComunitario implements Dao<GrupoComunitario> {
     private DaoMongoGrupoComunitario() throws DaoException {
         try {
             collection = 
-                    DaoConexaoMongoDB.getInstancia().getCollection("GrupoComunitario");
+                    DaoConexaoMongoDB.getInstancia().getCollection(GrupoComunitario.class);
         } catch (Exception ex) {
             throw new DaoException(ex);
         }
@@ -34,7 +34,7 @@ public class DaoMongoGrupoComunitario implements Dao<GrupoComunitario> {
     }
 
     @Override
-    public GrupoComunitario deleta(GrupoComunitario objeto) throws DaoException {
+    public void deleta(GrupoComunitario objeto) throws DaoException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

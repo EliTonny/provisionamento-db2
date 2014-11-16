@@ -1,7 +1,6 @@
 package provisionamento.view;
 
 import Sistema.Dao;
-import Sistema.FacadeCarregaArquivos;
 import Sistema.Factoring;
 import javax.swing.JOptionPane;
 import provisionamento.model.Categoria;
@@ -27,8 +26,8 @@ public class Main {
 
     private static void criaTeste() throws Exception {
         Dao dg = Factoring.getDaoGrupoComunitario();
-        Dao du = Factoring.getDaoUsuario();
-        Dao dp = Factoring.getDaoParticipante();
+        Dao<Usuario> du = Factoring.getDaoUsuario();
+        Dao<Participante> dp = Factoring.getDaoParticipante();
         Dao dc = Factoring.getDaoCategoria();
 
         Usuario u = new Usuario();
@@ -45,15 +44,22 @@ public class Main {
         Usuario u3 = new Usuario();
         u3.setNome("Teste3");
         du.grava(u3);
+        
+        Usuario usuarioGravado = du.busca("a");
 
         Participante p2 = new Participante();
+        p2.setPago(true);
         p2.setUsuario(u2);
         dp.grava(p2);
 
         Participante p3 = new Participante();
         p3.setUsuario(u3);
         dp.grava(p3);
-
+        
+        Participante participanteGravado = dp.busca("Teste2");
+        participanteGravado = dp.busca(participanteGravado.getId());
+        if(participanteGravado == null)
+            System.out.println("saa");
         Categoria c = new Categoria();
         c.setDescricao("Pão");
         dc.grava(c);

@@ -16,7 +16,7 @@ import provisionamento.model.Usuario;
  *
  * @author Lucas
  */
-public class FrameLogin extends javax.swing.JFrame{
+public class FrameLogin extends javax.swing.JFrame {
 
     public FrameLogin() {
         initComponents();
@@ -142,7 +142,7 @@ public class FrameLogin extends javax.swing.JFrame{
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario não cadastrado!");
             }
-        } catch (DaoException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_btLoginActionPerformed

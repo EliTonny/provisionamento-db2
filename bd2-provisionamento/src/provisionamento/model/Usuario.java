@@ -5,17 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Usuario extends ModeloBase {
-    
+
     private String nome;
     private char[] senha;
     private String email;
-    
     private transient List<Mensagem> mensagens;
 
-    public Usuario(){
+    public Usuario() {
         this.mensagens = new ArrayList<>();
+        nome = "";
+        email = "";
+        senha = new char[0];
     }
-    
+
     public String getEmail() {
         return email;
     }
@@ -39,27 +41,28 @@ public class Usuario extends ModeloBase {
     public void setSenha(char[] senha) {
         this.senha = senha;
     }
-    
-    public void setMensagem(String mensagem, GrupoUnitario grupo){
+
+    public void setMensagem(String mensagem, GrupoUnitario grupo) {
         Mensagem novaMsg = new Mensagem(mensagem, grupo);
         this.mensagens.add(novaMsg);
     }
-    
-    public void removeMensagem(Mensagem mensagem){
+
+    public void removeMensagem(Mensagem mensagem) {
         this.mensagens.remove(mensagem);
     }
-    
-    public void removeMensagens(){
+
+    public void removeMensagens() {
         this.mensagens.clear();
     }
-    
-    public List<Mensagem> getMensagens(){
+
+    public List<Mensagem> getMensagens() {
         return this.mensagens;
     }
-    
-    public void iniMensagens(){
-        if(this.mensagens == null)
+
+    public void iniMensagens() {
+        if (this.mensagens == null) {
             this.mensagens = new ArrayList<>();
+        }
     }
 
     @Override

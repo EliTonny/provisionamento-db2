@@ -21,6 +21,9 @@ public abstract class ModeloBase implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        return (((ModeloBase) o).getId().equals(this.getId()));
+        if (o instanceof ModeloBase) {
+            return (((ModeloBase) o).getId().equals(this.getId()));
+        }
+        return false;
     }
 }
