@@ -27,7 +27,7 @@ public class DaoMongoUsuario implements Dao<Usuario> {
     private DaoMongoUsuario() throws DaoException {
         try {
             collection = 
-                    DaoConexaoMongoDB.getInstancia().getCollection("Usuario");
+                    DaoConexaoMongoDB.getInstancia().getCollection(Usuario.class);
         } catch (Exception ex) {
             throw new DaoException(ex);
         }
@@ -35,15 +35,8 @@ public class DaoMongoUsuario implements Dao<Usuario> {
 
     @Override
     public Usuario busca(String nome) {
-        Usuario usuario = null;
         BasicDBObject query = new BasicDBObject("dsUsuarioUpper", nome.trim().toUpperCase());
-        try (DBCursor cursor = collection.find(query)) {
-            while (cursor.hasNext()) {
-                usuario = DBObjectToUsuario(cursor.next());
-                break;
-            }
-        }
-        return usuario;
+        return DBObjectToUsuario(collection.findOne(query));
     }
 
     @Override
@@ -65,21 +58,26 @@ public class DaoMongoUsuario implements Dao<Usuario> {
                 .append("dsEmail", usuario.getEmail())
                 .append("dsSenha", usuario.getSenha());
         collection.insert(doc);
+        usuario.id = doc.getObjectId("_id");
     }
 
     @Override
     public Usuario busca(ObjectId id) throws DaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        BasicDBObject query = new BasicDBObject("_id", id);
+        return DBObjectToUsuario(collection.findOne(query));
     }
 
     @Override
-    public Usuario deleta(Usuario object) throws DaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleta(Usuario usuario) throws DaoException {
+        BasicDBObject query = new BasicDBObject("_id", usuario.getId());
+        collection.remove(query);
     }
 
     private Usuario DBObjectToUsuario(DBObject ob) {
+        if(ob == null)
+            return null;
         Usuario usuario = new Usuario();
-        usuario.setId((ObjectId) ob.get("_id"));
+        usuario.setId((ObjectId)ob.get("_id"));
         usuario.setNome((String) ob.get("dsUsuario"));
         usuario.setEmail((String) ob.get("dsEmail"));
         BasicDBList dsSenha = (BasicDBList) ob.get("dsSenha");
