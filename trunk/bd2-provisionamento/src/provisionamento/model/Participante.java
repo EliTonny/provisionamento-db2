@@ -1,8 +1,8 @@
 package provisionamento.model;
 
-import DaoArquivo.ModeloBase;
+import DaoMongoDB.ModeloBase;
 
-public class Participante extends ModeloBase{
+public class Participante extends ModeloBase {
     private Usuario usuario;
     private boolean pago;
 

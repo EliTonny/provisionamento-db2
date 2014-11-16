@@ -28,7 +28,7 @@ public class FrameGrupoComunitario extends javax.swing.JFrame implements Observe
         cbCategoria.removeAllItems();
         lsParticipantesGrupo.setModel(listaParticipantes);
         try {
-            List<Categoria> categorias = controller.buscaCategoria();
+            List<Categoria> categorias = controller.buscarCategoria();
 
             for (Categoria categoria : categorias) {
                 cbCategoria.addItem(categoria);
@@ -403,12 +403,12 @@ public class FrameGrupoComunitario extends javax.swing.JFrame implements Observe
                 while (!listaParticipantes.isEmpty()) {
                     participante = new Participante();
                     participante.setUsuario(listaParticipantes.firstElement());
-                    controller.grava(participante);
+                    controller.gravar(participante);
                     grupoComunitario.addParticipante(participante);
 
                     listaParticipantes.removeElement(participante.getUsuario());
                 }
-                controller.grava(grupoComunitario);
+                controller.gravar(grupoComunitario);
 
                 tfDiasNotificacao.setText(null);
                 tfDiasVencimento.setText(null);
@@ -478,7 +478,7 @@ public class FrameGrupoComunitario extends javax.swing.JFrame implements Observe
 
     private void iniListaUsuario() {
         try {
-            List<Usuario> usuarios = controller.buscaUsuario();
+            List<Usuario> usuarios = controller.buscarUsuario();
             listaUsuarios.removeAllElements();
             for (Usuario usuario : usuarios) {
                 listaUsuarios.addElement(usuario);

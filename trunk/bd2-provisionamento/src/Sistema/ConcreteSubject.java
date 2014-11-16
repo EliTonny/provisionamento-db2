@@ -1,13 +1,8 @@
-
 package Sistema;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Eli T. de Souza
- */
 public class ConcreteSubject implements Subject{
     
     private List<Observer> observadores;

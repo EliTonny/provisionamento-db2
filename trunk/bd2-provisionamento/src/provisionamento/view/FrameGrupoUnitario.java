@@ -27,7 +27,7 @@ public class FrameGrupoUnitario extends javax.swing.JFrame implements Observer {
 
         try {
             cbCategoria.removeAllItems();
-            List<Categoria> categorias = controller.buscaCategoria();
+            List<Categoria> categorias = controller.buscarCategoria();
 
             for (Categoria cat : categorias) {
                 cbCategoria.addItem(cat);
@@ -281,7 +281,7 @@ public class FrameGrupoUnitario extends javax.swing.JFrame implements Observer {
                 grupoUnitario.setValorCompra(Double.parseDouble(TxtValor.getText().replace(',', '.')));
                 grupoUnitario.setCriador(Session.getInstancia().getUsuarioLogado());
 
-                controller.grava(grupoUnitario);
+                controller.gravar(grupoUnitario);
                 if (mensagemFonte != null) {
                     mensagemFonte.getGrupo().setFinalizado(true);
                     controller.notificar(mensagemFonte);

@@ -153,7 +153,7 @@ public class FrameUsuario extends javax.swing.JFrame {
             usuario.setNome(tfNome.getText());
             usuario.setEmail(tfEmail.getText());
             usuario.setSenha(tfSenha.getPassword());
-            controller.grava(usuario);
+            controller.gravar(usuario);
 
             JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
             this.limpar();

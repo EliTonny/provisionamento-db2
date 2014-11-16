@@ -67,7 +67,7 @@ public class Main {
     }
 
     private static void teste() throws Exception {
-        FacadeCarregaArquivos.Carrega();
+        //FacadeCarregaArquivos.Carrega();
 
         Dao<GrupoComunitario> daoG = Factoring.getDaoGrupoComunitario();
         Dao<Usuario> daoU = Factoring.getDaoUsuario();

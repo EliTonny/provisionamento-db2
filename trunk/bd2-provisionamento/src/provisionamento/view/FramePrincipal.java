@@ -37,15 +37,15 @@ public class FramePrincipal extends javax.swing.JFrame implements Observer {
             lbUsuLogado.setText(lbUsuLogado.getText() + Session.getInstancia().getUsuarioLogado().getNome() + "!");
 
             ArrayList<GrupoComunitario> grupoParticipante =
-                    controller.getGruposParticipante(
+                    controller.buscarGruposParticipante(
                     Session.getInstancia().getUsuarioLogado());
 
             ArrayList<GrupoComunitario> grupoCriador =
-                    controller.getGruposCriador(
+                    controller.buscarGruposCriador(
                     Session.getInstancia().getUsuarioLogado());
 
             ArrayList<GrupoUnitario> grupoPessoal =
-                    controller.getGruposPessoais(
+                    controller.buscarGruposPessoais(
                     Session.getInstancia().getUsuarioLogado());
 
             DefaultListModel<GrupoComunitario> modelSeusGrupos =

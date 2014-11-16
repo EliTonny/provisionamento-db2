@@ -126,7 +126,7 @@ public class FrameLogin extends javax.swing.JFrame{
 
     private void btLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLoginActionPerformed
         try {
-            Usuario usuario = controller.buscaUsuario(tfUsuario.getText());
+            Usuario usuario = controller.buscarUsuario(tfUsuario.getText());
             if (usuario != null) {
                 if (Arrays.equals(usuario.getSenha(), tfSenha.getPassword())) {
                     tfUsuario.setText("");
@@ -134,7 +134,7 @@ public class FrameLogin extends javax.swing.JFrame{
                     Session.getInstancia().setUsuarioLogado(usuario);
                     AvisaCompradores.avisar();
                     new FramePrincipal().setVisible(true);
-                    FacadeCarregaArquivos.Carrega();
+                    //FacadeCarregaArquivos.Carrega();
                     this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Senha incorreta!");
@@ -152,7 +152,7 @@ public class FrameLogin extends javax.swing.JFrame{
         Usuario user;
         try {
             if (!(tfUsuarioEsquecido.getText().isEmpty())) {
-                user = controller.buscaUsuario(this.tfUsuario.getText());
+                user = controller.buscarUsuario(this.tfUsuario.getText());
                 if (user != null) {
                     EmailSender emailSender = new EmailSender(user);
                 } else {
