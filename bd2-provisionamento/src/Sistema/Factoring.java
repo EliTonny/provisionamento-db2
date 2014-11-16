@@ -1,10 +1,9 @@
 package Sistema;
 
-import DaoArquivo.DaoArquivoCategoria;
-import DaoArquivo.DaoArquivoGrupoComunitario;
-import DaoArquivo.DaoArquivoGrupoUnitario;
-import DaoArquivo.DaoArquivoParticipante;
-import DaoArquivo.DaoArquivoUsuario;
+import DaoMongoDB.DaoMongoCategoria;
+import DaoMongoDB.DaoMongoGrupoComunitario;
+import DaoMongoDB.DaoMongoGrupoUnitario;
+import DaoMongoDB.DaoMongoParticipante;
 import DaoMongoDB.DaoMongoUsuario;
 import MyExceptions.DaoException;
 import provisionamento.model.Categoria;
@@ -24,18 +23,18 @@ public class Factoring {
     }
 
     public static Dao<GrupoComunitario> getDaoGrupoComunitario() throws DaoException {
-        return DaoArquivoGrupoComunitario.getInstancia();
+        return DaoMongoGrupoComunitario.getInstancia();
     }
     
     public static Dao<GrupoUnitario> getDaoGrupoUnitario() throws DaoException {
-        return DaoArquivoGrupoUnitario.getInstancia();
+        return DaoMongoGrupoUnitario.getInstancia();
     }
 
     public static Dao<Categoria> getDaoCategoria() throws DaoException {
-        return DaoArquivoCategoria.getInstancia();
+        return DaoMongoCategoria.getInstancia();
     }
 
     public static Dao<Participante> getDaoParticipante() throws DaoException {
-        return DaoArquivoParticipante.getInstancia();
+        return DaoMongoParticipante.getInstancia();
     }
 }

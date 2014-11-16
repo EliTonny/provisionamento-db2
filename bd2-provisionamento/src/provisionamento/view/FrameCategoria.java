@@ -97,7 +97,7 @@ public class FrameCategoria extends javax.swing.JFrame {
                 try {
                     Categoria categoria = new Categoria();
                     categoria.setDescricao(tfNome.getText());
-                    controller.grava(categoria);
+                    controller.gravar(categoria);
                     tfNome.setText("");
                     JOptionPane.showMessageDialog(null, "Categoria cadastrada com sucesso!");
                 } catch (DaoException ex) {

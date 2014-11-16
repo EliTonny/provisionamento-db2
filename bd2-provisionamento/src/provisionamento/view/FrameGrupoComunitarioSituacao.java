@@ -101,13 +101,13 @@ public class FrameGrupoComunitarioSituacao extends javax.swing.JFrame {
             boolean todosPagaram = true;
             for (Participante p : grupoComunitario.getParticipantes()) {
                 boolean isPago = (boolean) this.TableGrupos.getValueAt(cont++, 2);
-                controller.AtualizarSituacaoParticipante(p, isPago);
+                controller.atualizarSituacaoParticipante(p, isPago);
                 if (!isPago) {
                     todosPagaram = false;
                 }
             }
             if (todosPagaram) {
-                controller.PagarGrupo(grupoComunitario);
+                controller.pagarGrupo(grupoComunitario);
                 JOptionPane.showMessageDialog(this, "Pagamento realizado com sucesso!\nTodos usuarios pagaram, o grupo será finalizado.");
                 ConcreteSubject.getInstancia().notifyObservers(grupoComunitario);
                 this.dispose();

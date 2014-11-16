@@ -1,11 +1,11 @@
 package provisionamento.model;
 
-import DaoArquivo.ModeloBase;
+import DaoMongoDB.ModeloBase;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Usuario extends ModeloBase {
-
+    
     private String nome;
     private char[] senha;
     private String email;

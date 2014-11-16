@@ -1,10 +1,11 @@
 package provisionamento.model;
 
-import DaoArquivo.ModeloBase;
+import DaoMongoDB.ModeloBase;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class GrupoUnitario  extends ModeloBase{
+public class GrupoUnitario extends ModeloBase {
+
     private Categoria categoria;
     private String descricao;
     private Date prazoValidade;
@@ -24,14 +25,13 @@ public class GrupoUnitario  extends ModeloBase{
         this.valorCompra = valorCompra;
     }
 
-     public GrupoUnitario() {
-        this.id = -1;
+    public GrupoUnitario() {
         this.dataCriacao = new Date();
     }
 
     public Usuario getCriador() {
         return criador;
-    }   
+    }
 
     public void setCriador(Usuario criador) {
         this.criador = criador;
@@ -76,11 +76,10 @@ public class GrupoUnitario  extends ModeloBase{
     public void setQrdDiasNotificacao(int QrdDiasNotificacao) {
         this.QrdDiasNotificacao = QrdDiasNotificacao;
     }
-    
+
     @Override
-    public String toString()
-    {
-        SimpleDateFormat sdf1= new SimpleDateFormat("dd/MM/yyyy");
+    public String toString() {
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
         Date y = this.dataCriacao;
         return this.getCategoria().getDescricao() + " " + sdf1.format(y);
 

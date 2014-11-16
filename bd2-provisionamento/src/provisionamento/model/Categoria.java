@@ -1,8 +1,8 @@
 package provisionamento.model;
 
-import DaoArquivo.ModeloBase;
+import DaoMongoDB.ModeloBase;
 
-public class Categoria extends ModeloBase{
+public class Categoria extends ModeloBase {
     
     private String descricao;
     
