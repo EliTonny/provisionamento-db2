@@ -14,8 +14,12 @@ public class GrupoUnitario extends ModeloBase {
     private Usuario criador;
     private Date dataCriacao;
     private boolean finalizado;
-
     private double valorCompra;
+
+    public GrupoUnitario() {
+        this.descricao = "";
+        this.dataCriacao = new Date();
+    }
 
     public double getValorCompra() {
         return valorCompra;
@@ -23,10 +27,6 @@ public class GrupoUnitario extends ModeloBase {
 
     public void setValorCompra(double valorCompra) {
         this.valorCompra = valorCompra;
-    }
-
-    public GrupoUnitario() {
-        this.dataCriacao = new Date();
     }
 
     public Usuario getCriador() {

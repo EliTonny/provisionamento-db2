@@ -429,6 +429,7 @@ public class FrameGrupoComunitario extends javax.swing.JFrame implements Observe
                 }
             }
         } catch (Exception ex) {
+            Logger.getLogger(FrameGrupoComunitario.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }//GEN-LAST:event_btAddGrupoComunActionPerformed
