@@ -40,7 +40,7 @@ public class DaoMongoParticipante implements Dao<Participante> {
                 .append("dsUsuario", participante.getUsuario().getNome().trim().toUpperCase())
                 .append("flPago", participante.isPago());
         collection.insert(doc);
-        participante.id = doc.getObjectId("_id");
+        participante.setId(doc.getObjectId("_id"));
     }
 
     @Override
