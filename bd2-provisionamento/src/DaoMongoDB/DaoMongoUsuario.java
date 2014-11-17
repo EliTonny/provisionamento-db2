@@ -58,7 +58,7 @@ public class DaoMongoUsuario implements Dao<Usuario> {
                 .append("dsEmail", usuario.getEmail())
                 .append("dsSenha", usuario.getSenha());
         collection.insert(doc);
-        usuario.id = doc.getObjectId("_id");
+        usuario.setId(doc.getObjectId("_id"));
     }
 
     @Override

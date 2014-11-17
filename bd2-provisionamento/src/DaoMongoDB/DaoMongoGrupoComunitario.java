@@ -40,15 +40,15 @@ public class DaoMongoGrupoComunitario implements Dao<GrupoComunitario> {
         ArrayList<Participante> participantes = (ArrayList<Participante>) grupoComunitario.getParticipantes();
         
         for (Participante participante : participantes) {
-            idParticipantes.add(participante.id);
+            idParticipantes.add(participante.getId());
         }
         
         BasicDBObject doc = new BasicDBObject()
                 .append("nmComprador", grupoComunitario.getPosComprador())
                 .append("dsGrupoComunitario", grupoComunitario.getDescricao())
                 .append("dsGrupoComunitarioUpper", grupoComunitario.getDescricao().trim().toUpperCase())
-                .append("idCategoria", grupoComunitario.getCategoria().id)
-                .append("idCriador",grupoComunitario.getCriador().id)
+                .append("idCategoria", grupoComunitario.getCategoria().getId())
+                .append("idCriador",grupoComunitario.getCriador().getId())
                 .append("dtCriacao", grupoComunitario.getDataCriacao())
                 .append("prazoValidade", grupoComunitario.getPrazoValidade())
                 .append("diasNotificacao", grupoComunitario.getQrdDiasNotificacao())
@@ -57,7 +57,7 @@ public class DaoMongoGrupoComunitario implements Dao<GrupoComunitario> {
                 .append("idParticipantes", idParticipantes)
                 .append("pago", grupoComunitario.isPago());
         collection.insert(doc);
-        grupoComunitario.id = doc.getObjectId("_id");
+        grupoComunitario.setId(doc.getObjectId("_id"));
     }
 
     @Override

@@ -38,7 +38,7 @@ public class DaoMongoCategoria  implements Dao<Categoria> {
                 .append("dsCategoria", categoria.getDescricao())
                 .append("dsCategoriaUpper", categoria.getDescricao().trim().toUpperCase());
         collection.insert(doc);
-        categoria.id = doc.getObjectId("_id");
+        categoria.setId(doc.getObjectId("_id"));
     }
 
     @Override

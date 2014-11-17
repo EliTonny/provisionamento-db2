@@ -5,7 +5,7 @@ import org.bson.types.ObjectId;
 
 public abstract class ModeloBase implements Serializable {
 
-    protected ObjectId id;
+    private ObjectId id;
 
     public ModeloBase() {
         this.id = null;

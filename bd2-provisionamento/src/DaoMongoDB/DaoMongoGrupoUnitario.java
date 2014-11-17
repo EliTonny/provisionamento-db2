@@ -38,15 +38,15 @@ public class DaoMongoGrupoUnitario implements Dao<GrupoUnitario>  {
         BasicDBObject doc = new BasicDBObject()
                 .append("dsGrupoUnitario", grupoUnitario.getDescricao())
                 .append("dsGrupoUnitarioUpper", grupoUnitario.getDescricao().trim().toUpperCase())
-                .append("idCategoria", grupoUnitario.getCategoria().id)
-                .append("idCriador",grupoUnitario.getCriador().id)
+                .append("idCategoria", grupoUnitario.getCategoria().getId())
+                .append("idCriador",grupoUnitario.getCriador().getId())
                 .append("dtCriacao", grupoUnitario.getDataCriacao())
                 .append("prazoValidade", grupoUnitario.getPrazoValidade())
                 .append("diasNotificacao", grupoUnitario.getQrdDiasNotificacao())
                 .append("quantidade", grupoUnitario.getQuantidade())
                 .append("vlrCompra", grupoUnitario.getValorCompra());
         collection.insert(doc);
-        grupoUnitario.id = doc.getObjectId("_id");
+        grupoUnitario.setId(doc.getObjectId("_id"));
     }
 
     @Override
