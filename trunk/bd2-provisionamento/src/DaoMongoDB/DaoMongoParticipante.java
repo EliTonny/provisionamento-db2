@@ -4,7 +4,9 @@ import MyExceptions.DaoException;
 import Sistema.Dao;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+import java.util.ArrayList;
 import java.util.List;
 import org.bson.types.ObjectId;
 import provisionamento.model.Participante;
@@ -41,8 +43,9 @@ public class DaoMongoParticipante implements Dao<Participante> {
     }
 
     @Override
-    public void deleta(Participante objeto) throws DaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleta(Participante participante) throws DaoException {
+        BasicDBObject query = new BasicDBObject("_id", participante.getId());
+        collection.remove(query);
     }
 
     @Override
@@ -59,7 +62,13 @@ public class DaoMongoParticipante implements Dao<Participante> {
 
     @Override
     public List<Participante> busca() throws DaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Participante> participantes = new ArrayList();
+        try (DBCursor cursor = collection.find()) {
+            while (cursor.hasNext()) {
+                participantes.add(DBObjectToParticipante(cursor.next()));
+            }
+        }
+        return participantes;        
     }
 
     private Participante DBObjectToParticipante(DBObject ob) throws DaoException {

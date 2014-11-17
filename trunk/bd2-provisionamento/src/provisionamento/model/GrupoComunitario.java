@@ -25,6 +25,10 @@ public class GrupoComunitario extends GrupoUnitario {
         super();
         participantes = new ArrayList<>();
     }
+    
+    public void setParticipantes(ArrayList<Participante> participantes){
+        this.participantes = participantes;
+    }
 
     public void addParticipante(Participante participante) {
         //Usando arrayList para controlar a fila com o indice comprador

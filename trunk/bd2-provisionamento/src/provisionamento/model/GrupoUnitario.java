@@ -77,6 +77,14 @@ public class GrupoUnitario extends ModeloBase {
         this.QrdDiasNotificacao = QrdDiasNotificacao;
     }
 
+    public Date getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+    
     @Override
     public String toString() {
         SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");

@@ -2,7 +2,11 @@ package DaoMongoDB;
 
 import MyExceptions.DaoException;
 import Sistema.Dao;
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+import java.util.ArrayList;
 import java.util.List;
 import org.bson.types.ObjectId;
 import provisionamento.model.Categoria;
@@ -29,28 +33,47 @@ public class DaoMongoCategoria  implements Dao<Categoria> {
     }
     
     @Override
-    public void grava(Categoria objeto) throws DaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void grava(Categoria categoria) throws DaoException {
+        BasicDBObject doc = new BasicDBObject()
+                .append("dsCategoria", categoria.getDescricao())
+                .append("dsCategoriaUpper", categoria.getDescricao().trim().toUpperCase());
+        collection.insert(doc);
+        categoria.id = doc.getObjectId("_id");
     }
 
     @Override
-    public void deleta(Categoria objeto) throws DaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleta(Categoria categoria) throws DaoException {
+        BasicDBObject query = new BasicDBObject("_id", categoria.getId());
+        collection.remove(query);
     }
 
     @Override
     public Categoria busca(String nome) throws DaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        BasicDBObject query = new BasicDBObject("dsCategoriaUpper", nome.trim().toUpperCase());
+        return DBObjectToCategoria(collection.findOne(query));
     }
 
     @Override
     public Categoria busca(ObjectId id) throws DaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        BasicDBObject query = new BasicDBObject("_id", id);
+        return DBObjectToCategoria(collection.findOne(query));        
     }
 
     @Override
     public List<Categoria> busca() throws DaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Categoria> categorias = new ArrayList();
+        try (DBCursor cursor = collection.find()) {
+            while (cursor.hasNext()) {
+                categorias.add(DBObjectToCategoria(cursor.next()));
+            }
+        }        
+        return categorias;
     }
     
+    private Categoria DBObjectToCategoria(DBObject ob){
+        Categoria categoria = new Categoria();
+        categoria.setId((ObjectId)ob.get("_id"));
+        categoria.setDescricao((String)ob.get("dsCategoria"));
+        return categoria;
+    }
 }
