@@ -10,10 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.bson.types.ObjectId;
-import provisionamento.model.Categoria;
 import provisionamento.model.GrupoComunitario;
 import provisionamento.model.Participante;
-import provisionamento.model.Usuario;
 
 public class DaoMongoGrupoComunitario implements Dao<GrupoComunitario> {
 
@@ -38,19 +36,25 @@ public class DaoMongoGrupoComunitario implements Dao<GrupoComunitario> {
     
     @Override
     public void grava(GrupoComunitario grupoComunitario) throws DaoException {
+        ArrayList<ObjectId> idParticipantes = new ArrayList<>();
+        ArrayList<Participante> participantes = (ArrayList<Participante>) grupoComunitario.getParticipantes();
+        
+        for (Participante participante : participantes) {
+            idParticipantes.add(participante.id);
+        }
+        
         BasicDBObject doc = new BasicDBObject()
-                .append("_id", grupoComunitario.getId())
-                .append("nmComprador", grupoComunitario.getComprador().id)
+                .append("nmComprador", grupoComunitario.getPosComprador())
                 .append("dsGrupoComunitario", grupoComunitario.getDescricao())
                 .append("dsGrupoComunitarioUpper", grupoComunitario.getDescricao().trim().toUpperCase())
-                .append("categoria", grupoComunitario.getCategoria())
-                .append("criador",grupoComunitario.getCriador())
+                .append("idCategoria", grupoComunitario.getCategoria().id)
+                .append("idCriador",grupoComunitario.getCriador().id)
                 .append("dtCriacao", grupoComunitario.getDataCriacao())
                 .append("prazoValidade", grupoComunitario.getPrazoValidade())
                 .append("diasNotificacao", grupoComunitario.getQrdDiasNotificacao())
                 .append("quantidade", grupoComunitario.getQuantidade())
                 .append("vlrCompra", grupoComunitario.getValorCompra())
-                .append("participantes", grupoComunitario.getParticipantes())
+                .append("idParticipantes", idParticipantes)
                 .append("pago", grupoComunitario.isPago());
         collection.insert(doc);
         grupoComunitario.id = doc.getObjectId("_id");
@@ -85,20 +89,26 @@ public class DaoMongoGrupoComunitario implements Dao<GrupoComunitario> {
         return grupos;
     }
     
-    private GrupoComunitario DBObjectToGrupoComunitario(DBObject ob){
+    private GrupoComunitario DBObjectToGrupoComunitario(DBObject ob) throws DaoException{
         GrupoComunitario grupo = new GrupoComunitario();
         grupo.setId((ObjectId)ob.get("_id"));
         grupo.setComprador((Integer) ob.get("nmComprador"));
         grupo.setDescricao((String) ob.get("dsGrupoComunitario"));
-        grupo.setCategoria((Categoria) ob.get("categoria"));
-        grupo.setCriador((Usuario) ob.get("criador"));
         grupo.setDataCriacao((Date) ob.get("dtCriacao"));
         grupo.setPrazoValidade((Date) ob.get("prazoValidade"));
         grupo.setQrdDiasNotificacao((Integer) ob.get("diasNotificacao"));
         grupo.setValorCompra((Double) ob.get("vlrCompra"));
         grupo.setQuantidade((Integer) ob.get("quantidade"));
-        grupo.setParticipantes((ArrayList<Participante>) ob.get("participantes"));
         grupo.setPago((Boolean) ob.get("pago"));
+        
+        grupo.setCategoria(DaoMongoCategoria.getInstancia().busca((ObjectId) ob.get("idCategoria")));
+        grupo.setCriador(DaoMongoUsuario.getInstancia().busca((ObjectId) ob.get("idCriador")));
+        
+        ArrayList<ObjectId> idParticipantes = (ArrayList<ObjectId>) ob.get("idParticipantes");
+        
+        for (ObjectId objectId : idParticipantes) {
+            grupo.addParticipante(DaoMongoParticipante.getInstancia().busca(objectId));
+        }
         
         return grupo;
     }

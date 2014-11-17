@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.bson.types.ObjectId;
-import provisionamento.model.Categoria;
 import provisionamento.model.GrupoUnitario;
-import provisionamento.model.Usuario;
 
 public class DaoMongoGrupoUnitario implements Dao<GrupoUnitario>  {
 
@@ -38,11 +36,10 @@ public class DaoMongoGrupoUnitario implements Dao<GrupoUnitario>  {
     @Override
     public void grava(GrupoUnitario grupoUnitario) throws DaoException {
         BasicDBObject doc = new BasicDBObject()
-                .append("_id", grupoUnitario.getId())
                 .append("dsGrupoUnitario", grupoUnitario.getDescricao())
                 .append("dsGrupoUnitarioUpper", grupoUnitario.getDescricao().trim().toUpperCase())
-                .append("categoria", grupoUnitario.getCategoria())
-                .append("criador",grupoUnitario.getCriador())
+                .append("idCategoria", grupoUnitario.getCategoria().id)
+                .append("idCriador",grupoUnitario.getCriador().id)
                 .append("dtCriacao", grupoUnitario.getDataCriacao())
                 .append("prazoValidade", grupoUnitario.getPrazoValidade())
                 .append("diasNotificacao", grupoUnitario.getQrdDiasNotificacao())
@@ -81,18 +78,19 @@ public class DaoMongoGrupoUnitario implements Dao<GrupoUnitario>  {
         return grupos;
     }
     
-    private GrupoUnitario DBObjectToGrupoUnitario(DBObject ob){
+    private GrupoUnitario DBObjectToGrupoUnitario(DBObject ob) throws DaoException{
         GrupoUnitario grupo = new GrupoUnitario();
 
         grupo.setId((ObjectId)ob.get("_id"));
         grupo.setDescricao((String) ob.get("dsGrupoComunitario"));
-        grupo.setCategoria((Categoria) ob.get("categoria"));
-        grupo.setCriador((Usuario) ob.get("criador"));
         grupo.setDataCriacao((Date) ob.get("dtCriacao"));
         grupo.setPrazoValidade((Date) ob.get("prazoValidade"));
         grupo.setQrdDiasNotificacao((Integer) ob.get("diasNotificacao"));
         grupo.setValorCompra((Double) ob.get("vlrCompra"));
         grupo.setQuantidade((Integer) ob.get("quantidade"));
+        
+        grupo.setCategoria(DaoMongoCategoria.getInstancia().busca((ObjectId) ob.get("idCategoria")));
+        grupo.setCriador(DaoMongoUsuario.getInstancia().busca((ObjectId) ob.get("idCriador")));
         
         return grupo;
     }
