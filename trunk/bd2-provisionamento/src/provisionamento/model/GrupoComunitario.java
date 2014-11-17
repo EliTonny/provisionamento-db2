@@ -55,4 +55,8 @@ public class GrupoComunitario extends GrupoUnitario {
     public Participante getComprador() {
         return this.participantes.get(comprador);
     }
+    
+    public int getPosComprador(){
+        return this.comprador;
+    }
 }
