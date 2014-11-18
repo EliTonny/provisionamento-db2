@@ -20,11 +20,14 @@ public class FrameGrupoComunitarioSituacao extends javax.swing.JFrame {
         grupoComunitario = grupo;
 
         DefaultTableModel model = (DefaultTableModel) this.TableGrupos.getModel();
-        for (Participante participante : grupoComunitario.getParticipantes()) {
-            model.addRow(new Object[]{participante.getUsuario().getNome(),
-                grupoComunitario.getValorCompra() / grupoComunitario.getParticipantes().size(),
-                participante.isPago()});
+        if(grupoComunitario.getParticipantes() != null){
+            for (Participante participante : grupoComunitario.getParticipantes()) {
+                model.addRow(new Object[]{participante.getUsuario().getNome(),
+                    grupoComunitario.getValorCompra() / grupoComunitario.getParticipantes().size(),
+                    participante.isPago()});
+            }            
         }
+
     }
 
     @SuppressWarnings("unchecked")
