@@ -65,17 +65,18 @@ public class Usuario extends ModeloBase {
         }
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         Usuario usuario;
         if (o instanceof Usuario) {
             usuario = (Usuario) o;
+            System.out.println(this.getId() == usuario.getId());
             if (this.getId() == usuario.getId()) {
                 return true;
             }
         }
         return false;
-    }
+    }*/
 
     @Override
     public String toString() {
