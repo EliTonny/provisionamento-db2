@@ -28,6 +28,7 @@ public class DaoMongoUsuario implements Dao<Usuario> {
         try {
             collection = 
                     DaoConexaoMongoDB.getInstancia().getCollection(Usuario.class);
+            //collection.createIndex(new BasicDBObject("dsUsuarioUpper", 1));
         } catch (Exception ex) {
             throw new DaoException(ex);
         }
@@ -66,6 +67,11 @@ public class DaoMongoUsuario implements Dao<Usuario> {
         BasicDBObject query = new BasicDBObject("_id", id);
         return DBObjectToUsuario(collection.findOne(query));
     }
+    
+    /*public void alterar(ObjectId id, DBObject ob){
+        DBObject query = new BasicDBObject("_id", id);
+        collection.update(query, ob, true, true);
+    }*/
 
     @Override
     public void deleta(Usuario usuario) throws DaoException {
